@@ -25,15 +25,33 @@ body {
     transition: opacity 1s;
 }
 
+/* Photo container with glow */
+.photo-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Glow */
+.photo-wrapper::before {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 360px;
+    background: radial-gradient(circle, rgba(255,77,109,0.4), transparent);
+    filter: blur(30px);
+    z-index: -1;
+}
+
 /* Photo */
 #photo {
     display: none;
     width: 250px;
     border-radius: 20px;
     margin-top: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     opacity: 0;
-    transition: opacity 1.5s;
+    transform: scale(0.8);
+    filter: blur(10px);
+    transition: all 1.5s ease;
 }
 
 /* Button */
@@ -49,11 +67,34 @@ button {
     cursor: pointer;
 }
 
-/* Hearts */
+/* Proposal buttons */
+#proposalBox {
+    display: none;
+    margin-top: 20px;
+}
+
+.choice {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#yes {
+    background: #ff4d6d;
+    color: white;
+}
+
+#no {
+    background: #ccc;
+}
+
+/* Floating hearts */
 .heart {
     position: absolute;
     color: #ff4d6d;
-    font-size: 20px;
     animation: float 5s linear infinite;
 }
 
@@ -68,7 +109,16 @@ button {
 
 <div>
     <div id="text"></div>
-    <img id="photo" src="us.jpg">
+
+    <div class="photo-wrapper">
+        <img id="photo" src="us.jpg">
+    </div>
+
+    <div id="proposalBox">
+        <h2>Will you be mine? 💍</h2>
+        <button class="choice" id="yes">Yes ❤️</button>
+        <button class="choice" id="no">No 🙈</button>
+    </div>
 </div>
 
 <button onclick="next()">Next ❤️</button>
@@ -83,34 +133,41 @@ const lines = [
 "And one day…",
 "I just knew",
 "I love you, Shristi ❤️",
-"So here I am…",
-"Asking something from my heart",
-"Will you be mine? 💍"
+"So here I am…"
 ];
 
 let i = 0;
 
 function next() {
-    if (i < lines.length) {
-        const text = document.getElementById("text");
-        text.style.opacity = 0;
+    if (i >= lines.length) {
+        document.querySelector("button").style.display = "none";
+        document.getElementById("proposalBox").style.display = "block";
+        return;
+    }
+
+    const text = document.getElementById("text");
+    text.style.opacity = 0;
+
+    setTimeout(() => {
+        text.innerText = lines[i];
+        text.style.opacity = 1;
+    }, 400);
+
+    // Show photo moment
+    if (lines[i] === "I just knew") {
+        const photo = document.getElementById("photo");
+        photo.style.display = "block";
 
         setTimeout(() => {
-            text.innerText = lines[i];
-            text.style.opacity = 1;
-        }, 400);
+            photo.style.opacity = 1;
+            photo.style.transform = "scale(1)";
+            photo.style.filter = "blur(0)";
+        }, 300);
 
-        // Show photo at key moment
-        if (lines[i] === "I just knew") {
-            const photo = document.getElementById("photo");
-            photo.style.display = "block";
-            setTimeout(() => photo.style.opacity = 1, 200);
-        }
-
-        i++;
-    } else {
-        document.querySelector("button").style.display = "none";
+        heartBurst();
     }
+
+    i++;
 }
 
 /* Floating hearts */
@@ -124,8 +181,45 @@ function createHeart() {
 
     setTimeout(() => heart.remove(), 5000);
 }
-
 setInterval(createHeart, 400);
+
+/* Heart burst */
+function heartBurst() {
+    for (let j = 0; j < 30; j++) {
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.style.position = "absolute";
+        heart.style.left = "50%";
+        heart.style.top = "50%";
+
+        const angle = Math.random() * 2 * Math.PI;
+        const distance = Math.random() * 200;
+
+        heart.style.transition = "all 1s ease";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.style.transform =
+                `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+            heart.style.opacity = 0;
+        }, 50);
+
+        setTimeout(() => heart.remove(), 1000);
+    }
+}
+
+/* Proposal interactions */
+document.getElementById("yes").onclick = () => {
+    document.body.innerHTML = "<h1 style='font-size:3rem;'>❤️ Best decision ever ❤️</h1>";
+};
+
+document.getElementById("no").onmouseover = () => {
+    const btn = document.getElementById("no");
+    btn.style.position = "absolute";
+    btn.style.left = Math.random() * 80 + "%";
+    btn.style.top = Math.random() * 80 + "%";
+};
 </script>
 
 </body>
