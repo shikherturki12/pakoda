@@ -1,109 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>For Shristi ❤️</title>
+<title>For Shristi ❤️</title>
 
-    <style>
-        body {
-            margin: 0;
-            background: black;
-            color: white;
-            font-family: Arial;
-            overflow: hidden;
-            text-align: center;
-        }
+<style>
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #2c2c2c;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;
+}
 
-        .container {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+/* Text */
+#text {
+    font-size: 2rem;
+    max-width: 80%;
+    opacity: 0;
+    transition: opacity 1s;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
 
-        button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            background: #ff4d6d;
-            border: none;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-        }
+/* Button */
+button {
+    position: absolute;
+    bottom: 50px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    background: #ff4d6d;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
 
-        #message {
-            display: none;
-            font-size: 2rem;
-            color: #ff4d6d;
-            margin-top: 20px;
-            animation: glow 1s infinite alternate;
-        }
+button:hover {
+    transform: scale(1.05);
+}
 
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #ff4d6d; }
-            to { text-shadow: 0 0 30px #ff4d6d; }
-        }
+/* Hearts */
+.heart {
+    position: absolute;
+    color: #ff4d6d;
+    font-size: 20px;
+    animation: float 5s linear infinite;
+}
 
-        .photo {
-            display: none;
-            margin-top: 20px;
-            border-radius: 20px;
-            width: 250px;
-            box-shadow: 0 0 30px #ff4d6d;
-        }
-
-        .heart {
-            position: absolute;
-            color: red;
-            animation: float 5s linear infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(100vh); opacity: 1; }
-            100% { transform: translateY(-10vh); opacity: 0; }
-        }
-
-        #proposal {
-            display: none;
-            font-size: 2.5rem;
-            margin-top: 20px;
-        }
-    </style>
+@keyframes float {
+    0% { transform: translateY(100vh); opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
-
-    <button onclick="startLove()">Click Me ❤️</button>
-
-    <div id="message">I love you, Shristi Maurya 💖</div>
-
-    <img id="photo" class="photo" src="photo.jpg">
-
-    <div id="proposal">Will you be mine forever? 💍</div>
-
-</div>
-
-<audio id="music" src="song.mp3" loop></audio>
+<div id="text"></div>
+<button onclick="next()">Next ❤️</button>
 
 <script>
-function startLove() {
-    document.getElementById("message").style.display = "block";
-    document.getElementById("photo").style.display = "block";
+const lines = [
+"I didn’t plan this…",
+"I was learning something & got an idea for this…",
+"I thought why not try it out",
+"Your smile, your presence… everything",
+"Made my days better without me even realizing it",
+"And one day…",
+"I just knew",
+"I love you, Shristi ❤️",
+"So here I am…",
+"Asking something from my heart",
+"Will you be mine? 💍"
+];
 
-    setTimeout(() => {
-        document.getElementById("proposal").style.display = "block";
-    }, 3000);
+let i = 0;
 
-    document.getElementById("music").play();
+function next() {
+    if (i < lines.length) {
+        const text = document.getElementById("text");
+        text.style.opacity = 0;
 
-    setInterval(createHeart, 300);
+        setTimeout(() => {
+            text.innerText = lines[i];
+            text.style.opacity = 1;
+        }, 400);
+
+        i++;
+    } else {
+        document.querySelector("button").style.display = "none";
+    }
 }
 
+/* Floating hearts */
 function createHeart() {
     const heart = document.createElement("div");
-    heart.classList.add("heart");
+    heart.className = "heart";
     heart.innerHTML = "❤️";
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = (Math.random() * 20 + 10) + "px";
@@ -111,6 +109,8 @@ function createHeart() {
 
     setTimeout(() => heart.remove(), 5000);
 }
+
+setInterval(createHeart, 400);
 </script>
 
 </body>
