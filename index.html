@@ -1,24 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Page</title>
+    <title>For Shristi ❤️</title>
+
     <style>
         body {
-            background-color: #111;
-            color: #fff;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #000000, #1a1a1a);
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: Arial;
+            flex-direction: column;
         }
+
         h1 {
             font-size: 3rem;
             color: #ff4d6d;
+            text-shadow: 0 0 10px #ff4d6d, 0 0 30px #ff4d6d;
+        }
+
+        .typing {
+            border-right: 2px solid #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 4s steps(40, end) forwards, blink 1s infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            animation: float 5s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
         }
     </style>
 </head>
+
 <body>
-    <h1>I ❤️ Shristi Maurya</h1>
+
+<div class="container">
+    <h1 class="typing">I love you, Shristi Maurya ❤️</h1>
+    <p style="margin-top:20px; font-size:1.5rem;">
+        You make my world brighter ✨
+    </p>
+</div>
+
+<script>
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }
+
+    setInterval(createHeart, 300);
+</script>
+
 </body>
 </html>
