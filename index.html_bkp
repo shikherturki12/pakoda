@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Page</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #ff4d6d;
+        }
+    </style>
+</head>
+<body>
+    <h1>I ❤️ Shristi Maurya</h1>
+</body>
+</html>

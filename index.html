@@ -6,60 +6,67 @@
     <style>
         body {
             margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #000000, #1a1a1a);
+            background: black;
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: Arial;
             overflow: hidden;
+            text-align: center;
         }
 
         .container {
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             flex-direction: column;
         }
 
-        h1 {
-            font-size: 3rem;
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background: #ff4d6d;
+            border: none;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #message {
+            display: none;
+            font-size: 2rem;
             color: #ff4d6d;
-            text-shadow: 0 0 10px #ff4d6d, 0 0 30px #ff4d6d;
+            margin-top: 20px;
+            animation: glow 1s infinite alternate;
         }
 
-        .typing {
-            border-right: 2px solid #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0;
-            animation: typing 4s steps(40, end) forwards, blink 1s infinite;
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ff4d6d; }
+            to { text-shadow: 0 0 30px #ff4d6d; }
         }
 
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        @keyframes blink {
-            50% { border-color: transparent }
+        .photo {
+            display: none;
+            margin-top: 20px;
+            border-radius: 20px;
+            width: 250px;
+            box-shadow: 0 0 30px #ff4d6d;
         }
 
         .heart {
             position: absolute;
-            color: #ff4d6d;
-            font-size: 20px;
+            color: red;
             animation: float 5s linear infinite;
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(100vh);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh); opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
+        }
+
+        #proposal {
+            display: none;
+            font-size: 2.5rem;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -67,27 +74,43 @@
 <body>
 
 <div class="container">
-    <h1 class="typing">I love you, Shristi Maurya ❤️</h1>
-    <p style="margin-top:20px; font-size:1.5rem;">
-        You make my world brighter ✨
-    </p>
+
+    <button onclick="startLove()">Click Me ❤️</button>
+
+    <div id="message">I love you, Shristi Maurya 💖</div>
+
+    <img id="photo" class="photo" src="photo.jpg">
+
+    <div id="proposal">Will you be mine forever? 💍</div>
+
 </div>
 
-<script>
-    function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-        document.body.appendChild(heart);
+<audio id="music" src="song.mp3" loop></audio>
 
-        setTimeout(() => {
-            heart.remove();
-        }, 5000);
-    }
+<script>
+function startLove() {
+    document.getElementById("message").style.display = "block";
+    document.getElementById("photo").style.display = "block";
+
+    setTimeout(() => {
+        document.getElementById("proposal").style.display = "block";
+    }, 3000);
+
+    document.getElementById("music").play();
 
     setInterval(createHeart, 300);
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+}
 </script>
 
 </body>
