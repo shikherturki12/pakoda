@@ -7,91 +7,39 @@
 body {
     margin: 0;
     background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    color: #2c2c2c;
     font-family: 'Segoe UI', Arial;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    text-align: center;
+    flex-direction: column;
     overflow: hidden;
 }
 
 /* Text */
 #text {
-    font-size: 2rem;
-    max-width: 80%;
+    font-size: 3rem;
+    color: #2c2c2c;
     opacity: 0;
-    transition: opacity 1s;
-}
-
-/* Photo container with glow */
-.photo-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-/* Glow */
-.photo-wrapper::before {
-    content: "";
-    position: absolute;
-    width: 260px;
-    height: 360px;
-    background: radial-gradient(circle, rgba(255,77,109,0.4), transparent);
-    filter: blur(30px);
-    z-index: -1;
+    transform: translateY(20px);
+    transition: all 1.5s ease;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 /* Photo */
 #photo {
-    display: none;
-    width: 250px;
+    margin-top: 30px;
+    width: 320px;
+    max-width: 80vw;
     border-radius: 20px;
-    margin-top: 20px;
     opacity: 0;
-    transform: scale(0.8);
-    filter: blur(10px);
+    transform: scale(0.7);
+    filter: blur(12px);
     transition: all 1.5s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* Button */
-button {
-    position: absolute;
-    bottom: 50px;
-    padding: 12px 25px;
-    font-size: 1rem;
-    background: #ff4d6d;
-    border: none;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-/* Proposal buttons */
-#proposalBox {
-    display: none;
-    margin-top: 20px;
-}
-
-.choice {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-#yes {
-    background: #ff4d6d;
-    color: white;
-}
-
-#no {
-    background: #ccc;
-}
-
-/* Floating hearts */
+/* Hearts */
 .heart {
     position: absolute;
     color: #ff4d6d;
@@ -107,68 +55,26 @@ button {
 
 <body>
 
-<div>
-    <div id="text"></div>
-
-    <div class="photo-wrapper">
-        <img id="photo" src="us.jpg">
-    </div>
-
-    <div id="proposalBox">
-        <h2>Will you be mine? 💍</h2>
-        <button class="choice" id="yes">Yes ❤️</button>
-        <button class="choice" id="no">No 🙈</button>
-    </div>
-</div>
-
-<button onclick="next()">Next ❤️</button>
+<div id="text">I love you ❤️</div>
+<img id="photo" src="us.jpg">
 
 <script>
-const lines = [
-"I didn’t plan this…",
-"But somewhere along the way…",
-"You became important to me",
-"Your smile, your presence… everything",
-"Made my days better without me even realizing it",
-"And one day…",
-"I just knew",
-"I love you, Shristi ❤️",
-"So here I am…"
-];
+const text = document.getElementById("text");
+const photo = document.getElementById("photo");
 
-let i = 0;
+/* Reveal text */
+setTimeout(() => {
+    text.style.opacity = 1;
+    text.style.transform = "translateY(0)";
+}, 500);
 
-function next() {
-    if (i >= lines.length) {
-        document.querySelector("button").style.display = "none";
-        document.getElementById("proposalBox").style.display = "block";
-        return;
-    }
-
-    const text = document.getElementById("text");
-    text.style.opacity = 0;
-
-    setTimeout(() => {
-        text.innerText = lines[i];
-        text.style.opacity = 1;
-    }, 400);
-
-    // Show photo moment
-    if (lines[i] === "I just knew") {
-        const photo = document.getElementById("photo");
-        photo.style.display = "block";
-
-        setTimeout(() => {
-            photo.style.opacity = 1;
-            photo.style.transform = "scale(1)";
-            photo.style.filter = "blur(0)";
-        }, 300);
-
-        heartBurst();
-    }
-
-    i++;
-}
+/* Reveal photo after text */
+setTimeout(() => {
+    photo.style.opacity = 1;
+    photo.style.transform = "scale(1)";
+    photo.style.filter = "blur(0)";
+    heartBurst();
+}, 2000);
 
 /* Floating hearts */
 function createHeart() {
@@ -185,7 +91,7 @@ setInterval(createHeart, 400);
 
 /* Heart burst */
 function heartBurst() {
-    for (let j = 0; j < 30; j++) {
+    for (let i = 0; i < 30; i++) {
         const heart = document.createElement("div");
         heart.innerHTML = "❤️";
         heart.style.position = "absolute";
@@ -208,18 +114,6 @@ function heartBurst() {
         setTimeout(() => heart.remove(), 1000);
     }
 }
-
-/* Proposal interactions */
-document.getElementById("yes").onclick = () => {
-    document.body.innerHTML = "<h1 style='font-size:3rem;'>❤️ Best decision ever ❤️</h1>";
-};
-
-document.getElementById("no").onmouseover = () => {
-    const btn = document.getElementById("no");
-    btn.style.position = "absolute";
-    btn.style.left = Math.random() * 80 + "%";
-    btn.style.top = Math.random() * 80 + "%";
-};
 </script>
 
 </body>
