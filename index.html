@@ -18,7 +18,8 @@ body {
 
 /* Text */
 #text {
-    font-size: 3rem;
+    font-size: 3.5rem;
+    letter-spacing: 2px;
     color: #2c2c2c;
     opacity: 0;
     transform: translateY(20px);
@@ -39,7 +40,7 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* Hearts */
+/* Floating hearts */
 .heart {
     position: absolute;
     color: #ff4d6d;
@@ -55,20 +56,20 @@ body {
 
 <body>
 
-<div id="text">I love you ❤️</div>
+<div id="text">🐻 ❤️ Pakoda Queen 👑</div>
 <img id="photo" src="us.jpg">
 
 <script>
 const text = document.getElementById("text");
 const photo = document.getElementById("photo");
 
-/* Reveal text */
+/* Show text */
 setTimeout(() => {
     text.style.opacity = 1;
     text.style.transform = "translateY(0)";
 }, 500);
 
-/* Reveal photo after text */
+/* Show photo */
 setTimeout(() => {
     photo.style.opacity = 1;
     photo.style.transform = "scale(1)";
